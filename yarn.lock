@@ -6412,6 +6412,10 @@ react-native-drawer@^2.3.0:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
 
+react-native-maps@^0.16.3:
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.16.3.tgz#c061b78a9cca83b814efcf56006cc90020f720f7"
+
 react-native-tab-view@^0.0.67:
   version "0.0.67"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-0.0.67.tgz#cdd146fe5e5d4baff6c89f2d5d0b15fa23db39d0"
