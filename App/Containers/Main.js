@@ -45,6 +45,7 @@ export default class Main extends PureComponent {
           </View>
         </Animated.View>
         <ScrollView style={styles.content}>
+
         </ScrollView>
       </View>
     )
