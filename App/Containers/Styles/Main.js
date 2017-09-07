@@ -6,7 +6,7 @@ export default StyleSheet.create({
   map: {
     backgroundColor: Colors.transparent,
   },
-  mapSwitch: {
+  mapToggleWrapper: {
     position: 'absolute',
     bottom: 20,
     width: Metrics.screenWidth,
