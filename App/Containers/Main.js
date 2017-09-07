@@ -10,10 +10,6 @@ import styles from './Styles/Main'
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 const collapsedMapHeight = 200;
 const expandedMapHeight = Metrics.screenHeight;
-const MAP_ANIMATION_CONFIG = {
-  easing: Easing.ease,
-  duration: 500
-}
 
 export default class Main extends PureComponent {
   state = {
@@ -30,7 +26,8 @@ export default class Main extends PureComponent {
           always(collapsedMapHeight),
           always(expandedMapHeight),
         )(this.state),
-        ...MAP_ANIMATION_CONFIG
+        easing: Easing.ease,
+        duration: 500
       }
     ).start();
     this.setState({ expanded: !this.state.expanded })
@@ -48,7 +45,12 @@ export default class Main extends PureComponent {
           <Map />
           <View style={styles.mapSwitch}>
             <TouchableOpacity onPress={this.toggleMapHeight}>
-              <AnimatedIcon style={{ transform: [{ rotateZ }] }} name="expand-more" size={45} color="white" />
+              <AnimatedIcon
+                style={{ transform: [{ rotateZ }] }}
+                name="expand-more"
+                size={45}
+                color="white"
+              />
             </TouchableOpacity>
           </View>
         </Animated.View>
