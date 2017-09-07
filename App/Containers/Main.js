@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import { ScrollView, View, Animated, TouchableOpacity, Easing } from 'react-native'
-import { Metrics } from '../Themes'
-import Map from './Map';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import { ifElse, propEq, always } from 'ramda';
 
 import styles from './Styles/Main'
+import { Metrics } from '../Themes'
+import Map from './Map';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 const collapsedMapHeight = 200;
