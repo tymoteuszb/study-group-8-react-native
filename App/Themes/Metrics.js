@@ -1,6 +1,7 @@
 import {Dimensions, Platform} from 'react-native'
+import ExtraDimensions from 'react-native-extra-dimensions-android';
 
-const { width, height } = Dimensions.get('window')
+const screenHeight = ExtraDimensions.get('REAL_WINDOW_HEIGHT') - ExtraDimensions.get('SOFT_MENU_BAR_HEIGHT') - ExtraDimensions.get('STATUS_BAR_HEIGHT');
 
 // Used via Metrics.baseMargin
 const metrics = {
@@ -13,8 +14,8 @@ const metrics = {
   doubleSection: 50,
   horizontalLineHeight: 1,
   searchBarHeight: 30,
-  screenWidth: width < height ? width : height,
-  screenHeight: width < height ? height : width,
+  screenWidth: ExtraDimensions.get('REAL_WINDOW_WIDTH'),
+  screenHeight,
   navBarHeight: (Platform.OS === 'ios') ? 64 : 54,
 }
 

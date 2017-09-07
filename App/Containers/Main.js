@@ -15,7 +15,7 @@ const MAP_ANIMATION_CONFIG = {
 
 export default class Main extends PureComponent {
   state = {
-    mapHeight: new Animated.Value(expandedMapHeight)
+    mapHeight: new Animated.Value(collapsedMapHeight)
   }
 
   collapseMap = () => Animated.timing(
