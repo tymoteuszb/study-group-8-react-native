@@ -43,7 +43,7 @@ export default class Main extends PureComponent {
       <View style={styles.container}>
         <Animated.View style={[styles.map, { height: this.state.mapHeight }]}>
           <Map />
-          <View style={styles.mapSwitch}>
+          <View style={styles.mapToggleWrapper}>
             <TouchableOpacity onPress={this.toggleMapHeight}>
               <AnimatedIcon
                 style={{ transform: [{ rotateZ }] }}
