@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
-import { ScrollView, Text, View, TouchableOpacity } from 'react-native'
-import { Colors } from '../Themes'
+import { View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
+import { Colors } from '../Themes'
 
 import styles from './Styles/MenuItem'
 
