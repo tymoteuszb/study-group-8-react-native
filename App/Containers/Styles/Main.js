@@ -8,12 +8,21 @@ export default StyleSheet.create({
   },
   mapToggleWrapper: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 0,
     width: Metrics.screenWidth,
     left: 0,
     flex: 0,
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'center'
+  },
+  mapToggleButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    backgroundColor: Colors.light,
+    width: 30,
+    height: 30,
   },
   content: {
     flex: 1
