@@ -8,6 +8,7 @@ const size = {
   h1: 38,
   h2: 34,
   regular: 17,
+  menuItem: 16,
 }
 
 const style = {
@@ -22,6 +23,10 @@ const style = {
   normal: {
     fontFamily: type.base,
     fontSize: size.regular
+  },
+  menuItem: {
+    fontFamily: type.bold,
+    fontSize: size.menuItem
   },
 }
 

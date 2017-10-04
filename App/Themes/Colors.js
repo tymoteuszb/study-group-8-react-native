@@ -7,7 +7,7 @@ const colors = {
   orange: '#db8555',
   yellow: '#e9bc62',
   light: '#fdfcf8',
-  browne: '#806b63'
+  brown: '#806b63'
 }
 
 export default colors
