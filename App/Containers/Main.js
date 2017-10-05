@@ -1,15 +1,16 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { View, Animated, TouchableOpacity, Easing } from 'react-native'
-import { TabViewAnimated, SceneMap } from 'react-native-tab-view';
-import Icon from 'react-native-vector-icons/dist/MaterialIcons';
-import { ifElse, propEq, always, identity, not } from 'ramda';
+import { TabViewAnimated, SceneMap } from 'react-native-tab-view'
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import { ifElse, equals, always, identity, not } from 'ramda'
 
 import styles from './Styles/Main'
 import { Metrics, Colors } from '../Themes'
-import Map from './Map';
-import SlidesNavigation from '../Components/SlidesNavigation';
-import Menu from '../Components/Menu';
+import Map from './Map'
+import Places from './Places'
+import SlidesNavigation from '../Components/SlidesNavigation'
+import Menu from '../Components/Menu'
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 const collapsedMapHeight = 300;
@@ -17,27 +18,25 @@ const expandedMapHeight = Metrics.screenHeight;
 
 const PLACES_TAB_KEY = 'places';
 const MENU_TAB_KEY = 'menu';
-const TABS_NAVIGATION_STATE = {
-  index: 0,
+const TABS = {
   routes: [
     { key: MENU_TAB_KEY },
     { key: PLACES_TAB_KEY },
   ],
 }
 
-// TODO PLACES CONTAINER
-const PlacesPlaceholder = () => <View style={[ styles.container, { backgroundColor: Colors.light } ]} />;
-
 export class Main extends PureComponent {
   state = {
-    expanded: false,
+    index: 0,
     mapHeight: new Animated.Value(collapsedMapHeight),
     tabViewPosition: new Animated.Value(0)
   }
 
+  expanded = false
+
   renderScene = SceneMap({
     [MENU_TAB_KEY]: Menu,
-    [PLACES_TAB_KEY]: PlacesPlaceholder,
+    [PLACES_TAB_KEY]: Places,
   });
 
   toggleMapHeight = () => {
@@ -45,18 +44,20 @@ export class Main extends PureComponent {
       this.state.mapHeight,
       {
         toValue: ifElse(
-          propEq('expanded', true),
+          equals(true),
           always(collapsedMapHeight),
           always(expandedMapHeight),
-        )(this.state),
+        )(this.expanded),
         easing: Easing.ease,
         duration: 500
       }
     ).start();
-    this.setState({ expanded: not(this.state.expanded) })
+    this.expanded = not(this.expanded)
   }
 
-  handlePositionChange = ({ value }) => this.state.tabViewPosition.setValue(value);
+  handleIndexChange = (index) => this.setState({ index })
+
+  handlePositionChange = ({ value }) => this.state.tabViewPosition.setValue(value)
 
   render () {
     const rotateZ = this.state.mapHeight.interpolate({
@@ -68,6 +69,11 @@ export class Main extends PureComponent {
       inputRange: ([collapsedMapHeight, expandedMapHeight]),
       outputRange: ([0, 12]),
     });
+
+    const navigationState = {
+      index: this.state.index,
+      ...TABS
+    }
 
     return (
       <View style={styles.container}>
@@ -86,7 +92,7 @@ export class Main extends PureComponent {
 
             <Animated.View style={{ transform: [{ translateY: indicatorsTranslateY }] }}>
               <SlidesNavigation
-                itemsCount={TABS_NAVIGATION_STATE.routes.length}
+                itemsCount={TABS.routes.length}
                 position={this.state.tabViewPosition}
               />
             </Animated.View>
@@ -95,9 +101,9 @@ export class Main extends PureComponent {
 
         <TabViewAnimated
           style={styles.content}
-          navigationState={TABS_NAVIGATION_STATE}
+          navigationState={navigationState}
           renderScene={this.renderScene}
-          onIndexChange={identity}
+          onIndexChange={this.handleIndexChange}
           onPositionChange={this.handlePositionChange}
         />
       </View>

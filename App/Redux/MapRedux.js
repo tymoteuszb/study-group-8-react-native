@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   changeRegion: ['region']
-})
+}, { prefix: 'MAP_' });
 
 export const MapTypes = Types
 export default Creators
