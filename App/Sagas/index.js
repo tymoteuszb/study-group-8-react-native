@@ -6,22 +6,19 @@ import DebugConfig from '../Config/DebugConfig'
 /* ------------- Types ------------- */
 
 import { StartupTypes } from '../Redux/StartupRedux'
+import { GeolocationTypes } from '../Redux/GeolocationRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
-
-/* ------------- API ------------- */
-
-// The API we use is only used from Sagas, so we create it here and pass along
-// to the sagas which need it.
-const api = DebugConfig.useFixtures ? FixtureAPI : API.create()
+import { watchPosition, getCurrentPosition } from './GeolocationSagas'
 
 /* ------------- Connect Types To Sagas ------------- */
 
 export default function * root () {
   yield all([
     takeLatest(StartupTypes.STARTUP, startup),
-
+    takeLatest(GeolocationTypes.WATCH_POSITION, watchPosition),
+    takeLatest(GeolocationTypes.GET_CURRENT_POSITION, getCurrentPosition)
   ])
 }

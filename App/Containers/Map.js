@@ -6,8 +6,8 @@ import MapView from 'react-native-maps'
 import { createStructuredSelector } from 'reselect';
 
 import { MapStyles } from '../Themes'
-import { selectRegion } from '../Selectors/Map'
-import MapActions from '../Redux/Map'
+import { selectRegion } from '../Selectors/MapSelectors'
+import MapActions from '../Redux/MapRedux'
 
 import styles from './Styles/Map'
 

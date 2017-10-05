@@ -1,8 +1,6 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
-/* ------------- Types and Action Creators ------------- */
-
 const { Types, Creators } = createActions({
   changeRegion: ['region']
 })
@@ -19,7 +17,6 @@ const INITIAL_REGION = {
 
 export const INITIAL_STATE = Immutable({
   region: INITIAL_REGION,
-  isRequestingPosition: false
 })
 
 export const changeRegion = (state, { region }) => state
