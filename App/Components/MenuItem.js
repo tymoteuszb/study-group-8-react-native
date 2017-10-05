@@ -9,7 +9,7 @@ export default class MenuItem extends PureComponent {
   render () {
     return (
       <View style={styles.container}>
-        <TouchableOpacity  style={[styles.iconWrapper, { backgroundColor: this.props.color }]}>
+        <TouchableOpacity style={[styles.iconWrapper, { backgroundColor: this.props.color }]}>
           <Icon
             style={styles.icon}
             name={this.props.icon}

@@ -1,9 +1,14 @@
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import MapView from 'react-native-maps'
+import { createStructuredSelector } from 'reselect';
 
 import { MapStyles } from '../Themes'
+import { selectRegion } from '../Selectors/Map'
+import MapActions from '../Redux/Map'
+
 import styles from './Styles/Map'
 
 class Map extends PureComponent {
@@ -13,16 +18,20 @@ class Map extends PureComponent {
         <MapView
           style={styles.map}
           customMapStyle={MapStyles}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
-          }}
+          region={this.props.region}
+          onRegionChange={this.props.changeRegion}
         />
       </View>
     )
   }
 }
 
-export default connect(null, {})(Map)
+const mapStateToProps = createStructuredSelector({
+  region: selectRegion,
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  changeRegion: MapActions.changeRegion,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map)
