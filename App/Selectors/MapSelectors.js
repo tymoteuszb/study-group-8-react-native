@@ -5,5 +5,5 @@ const selectMap = prop('map')
 
 export const selectRegion = createSelector(
   selectMap,
-  state => state.getIn('region')
+  prop('region')
 )

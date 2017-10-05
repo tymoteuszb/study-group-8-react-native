@@ -16,7 +16,7 @@ const INITIAL_REGION = {
 };
 
 export const INITIAL_STATE = Immutable({
-  region: INITIAL_REGION,
+  region: INITIAL_REGION
 })
 
 export const changeRegion = (state, { region }) => state

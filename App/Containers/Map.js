@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import MapView from 'react-native-maps'
-import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect'
 
 import { MapStyles } from '../Themes'
 import { selectRegion } from '../Selectors/MapSelectors'
@@ -20,6 +20,11 @@ class Map extends PureComponent {
           customMapStyle={MapStyles}
           region={this.props.region}
           onRegionChange={this.props.changeRegion}
+          onRegionChangeComplete={() => { console.log('changed') }}
+          showsUserLocation
+          showsMyLocationButton
+          showsCompass
+          zoomEnabled
         />
       </View>
     )
@@ -27,11 +32,11 @@ class Map extends PureComponent {
 }
 
 const mapStateToProps = createStructuredSelector({
-  region: selectRegion,
-});
+  region: selectRegion
+})
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  changeRegion: MapActions.changeRegion,
-}, dispatch);
+  changeRegion: MapActions.changeRegion
+}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map)
