@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { pipe, prop, ifElse, either, isNil, isEmpty, always } from 'ramda'
 
 import styles from './Styles/PlaceItem'
-import GooglePhoto from './GooglePhoto';
+import GooglePhoto from './LazyImage';
 import Config from 'react-native-config'
 import qs from 'query-string'
 const GOOGLE_PHOTO_URL = 'https://maps.googleapis.com/maps/api/place/photo'
@@ -34,7 +34,7 @@ export default class PlaceItem extends PureComponent {
 
   render () {
     return (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container}>
         <GooglePhoto
           source={this.source}
           style={styles.image}
@@ -44,7 +44,7 @@ export default class PlaceItem extends PureComponent {
         <View style={styles.content}>
           <Text style={styles.title}>{this.props.name}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }

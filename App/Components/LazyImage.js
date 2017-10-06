@@ -2,7 +2,7 @@ import React, { PureComponent, PropTypes } from 'react'
 import { Animated, Easing } from 'react-native'
 import { ifElse, always, propEq } from 'ramda'
 
-import styles from './Styles/GooglePhoto';
+import styles from './Styles/LazyImage';
 
 export default class GooglePhoto extends PureComponent {
   static propTypes = {

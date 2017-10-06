@@ -11,22 +11,22 @@ export const PlacesTypes = Types
 export default Creators
 
 export const INITIAL_STATE = Immutable({
-  ifFetching: false,
+  isFetching: false,
   error: null,
   data: []
 })
 
 export const request = state => state
   .set('error', null)
-  .set('ifFetching', true)
+  .set('isFetching', true)
 
 export const success = (state, { data }) => state
   .set('data', data)
-  .set('ifFetching', false)
+  .set('isFetching', false)
 
 export const failure = (state, { error }) => state
   .set('error', error)
-  .set('ifFetching', false)
+  .set('isFetching', false)
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.REQUEST]: request,

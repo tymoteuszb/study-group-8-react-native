@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import { bindActionCreators } from 'redux'
 import { View, Animated, TouchableOpacity, Easing } from 'react-native'
 import { TabViewAnimated, SceneMap } from 'react-native-tab-view'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
@@ -11,6 +13,8 @@ import Map from './Map'
 import Places from './Places'
 import SlidesNavigation from '../Components/SlidesNavigation'
 import Menu from '../Components/Menu'
+import MainActions from '../Redux/MainRedux'
+import { selectTabIndex } from '../Selectors/MainSelectors'
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 const collapsedMapHeight = 300;
@@ -27,7 +31,6 @@ const TABS = {
 
 export class Main extends PureComponent {
   state = {
-    index: 0,
     mapHeight: new Animated.Value(collapsedMapHeight),
     tabViewPosition: new Animated.Value(0)
   }
@@ -55,8 +58,6 @@ export class Main extends PureComponent {
     this.expanded = not(this.expanded)
   }
 
-  handleIndexChange = (index) => this.setState({ index })
-
   handlePositionChange = ({ value }) => this.state.tabViewPosition.setValue(value)
 
   render () {
@@ -71,7 +72,7 @@ export class Main extends PureComponent {
     });
 
     const navigationState = {
-      index: this.state.index,
+      index: this.props.index,
       ...TABS
     }
 
@@ -103,7 +104,7 @@ export class Main extends PureComponent {
           style={styles.content}
           navigationState={navigationState}
           renderScene={this.renderScene}
-          onIndexChange={this.handleIndexChange}
+          onIndexChange={this.props.changeTabIndex}
           onPositionChange={this.handlePositionChange}
         />
       </View>
@@ -111,4 +112,12 @@ export class Main extends PureComponent {
   }
 }
 
-export default connect(null, {})(Main)
+const mapStateToProps = createStructuredSelector({
+  index: selectTabIndex
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  changeTabIndex: MainActions.changeTabIndex,
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)

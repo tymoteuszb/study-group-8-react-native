@@ -9,5 +9,18 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0
+  },
+  loaderWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    zIndex: 2,
   }
 })

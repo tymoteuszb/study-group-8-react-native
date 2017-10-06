@@ -7,3 +7,8 @@ export const selectPlacesData = createSelector(
   selectPlaces,
   prop('data')
 )
+
+export const selectIsFetching = createSelector(
+  selectPlaces,
+  prop('isFetching')
+)
