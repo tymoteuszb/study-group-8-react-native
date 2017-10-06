@@ -2,14 +2,7 @@ import { StyleSheet } from 'react-native'
 import { ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
-  container: {
-    ...ApplicationStyles.screen.mainContainer,
-    shadowOffset: {
-      width: 10,
-      height: 10
-    },
-    shadowColor: 'black',
-  },
+  container: ApplicationStyles.screen.mainContainer,
   map: {
     position: 'absolute',
     top: 0,
@@ -33,7 +26,6 @@ export default StyleSheet.create({
   iconWrapper: {
     width: 70,
     height: 70,
-    borderRadius: 35,
     flex: 0,
     flexDirection: 'column',
     alignItems: 'center',
