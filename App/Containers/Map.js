@@ -14,6 +14,10 @@ import PlacesActions from '../Redux/PlacesRedux'
 import styles from './Styles/Map'
 
 class Map extends PureComponent {
+  componentWillMount() {
+    this.forceUpdate();
+  }
+
   render () {
     return (
       <View style={styles.container}>

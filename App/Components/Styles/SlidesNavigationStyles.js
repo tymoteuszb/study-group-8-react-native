@@ -4,15 +4,18 @@ import { Colors } from '../../Themes/index';
 
 export default StyleSheet.create({
   container: {
-    zIndex: 1,
     flex: 0,
-    backgroundColor: Colors.light,
-    alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  content: {
+    backgroundColor: Colors.light,
     height: 12,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
-    marginTop: 10,
+    zIndex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
 });

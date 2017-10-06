@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { Colors } from '../../Themes/'
 
 export default StyleSheet.create({
   container: {
@@ -6,11 +7,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
-  },
-  headerWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 30,
-  },
+    backgroundColor: Colors.light
+  }
 })
