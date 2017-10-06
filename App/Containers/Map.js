@@ -27,11 +27,12 @@ class Map extends PureComponent {
           showsCompass
           zoomEnabled
         >
-          {this.props.markers.map(({ coordinates, title, id }) => (
+          {this.props.markers.map(({ coordinates, title, id, color }) => (
             <MapView.Marker
               key={id}
               coordinate={coordinates}
               title={title}
+              pinColor={color}
             />
           ))}
         </MapView>

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { prop, isEmpty } from 'ramda'
+import { prop, isEmpty, equals, always, ifElse } from 'ramda'
 import { Colors } from '../Themes'
 
 const selectPlaces = prop('places')
@@ -14,13 +14,22 @@ export const selectIsFetching = createSelector(
   prop('isFetching')
 )
 
+export const selectSelectedPlace = createSelector(
+  selectPlaces,
+  prop('selectedPlace')
+)
+
 export const selectPlacesMarkers = createSelector(
-  selectPlacesData,
-  data => data.map(({ id, name: title, geometry: { location: { lat, lng } } }) => ({
+  selectPlacesData, selectSelectedPlace,
+  (data, selectedPlace) => data.map(({ id, name: title, geometry: { location: { lat, lng } } }) => ({
     id,
     coordinates: { latitude: lat, longitude: lng },
     title,
-    color: Colors.aqua
+    color: ifElse(
+      equals(selectedPlace),
+      always(Colors.orange),
+      always(Colors.yellow)
+    )(id)
   }))
 )
 

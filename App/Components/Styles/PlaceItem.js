@@ -6,7 +6,11 @@ export default StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: Colors.light
+  },
+  selected: {
+    backgroundColor: Colors.grey
   },
   imageContainer: {
     flex: 0,

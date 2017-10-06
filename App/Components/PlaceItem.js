@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { pipe, prop, ifElse, either, isNil, isEmpty, always } from 'ramda'
+import { pipe, prop, ifElse, either, isNil, isEmpty, always, propEq } from 'ramda'
 
 import styles from './Styles/PlaceItem'
 import GooglePhoto from './LazyImage';
@@ -32,9 +32,17 @@ export default class PlaceItem extends PureComponent {
     return { uri: `${GOOGLE_PHOTO_URL}?${query}` }
   }
 
+  get selectedStyles () {
+    return ifElse(
+      propEq('isSelected', true),
+      always(styles.selected),
+      always(null)
+    )(this.props)
+  }
+
   render () {
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={[styles.container, this.selectedStyles]} onPress={this.props.onPress}>
         <GooglePhoto
           source={this.source}
           style={styles.image}

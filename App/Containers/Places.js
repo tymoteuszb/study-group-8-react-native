@@ -7,7 +7,7 @@ import { complement, equals, ifElse, propEq, always } from 'ramda'
 import { Pulse } from 'react-native-loader'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
-import { selectPlacesData, selectIsFetching, arePlacesEmpty } from '../Selectors/PlacesSelectors'
+import { selectPlacesData, selectIsFetching, arePlacesEmpty, selectSelectedPlace } from '../Selectors/PlacesSelectors'
 import PlacesActions from '../Redux/PlacesRedux'
 import PlaceItem from '../Components/PlaceItem'
 import { Colors } from '../Themes'
@@ -17,7 +17,16 @@ import styles from './Styles/Map'
 class Map extends PureComponent {
   dataSource = new ListView.DataSource({ rowHasChanged: complement(equals) });
 
-  renderRow = ({ name, id, photos, icon }) => <PlaceItem key={id} name={name} photos={photos} icon={icon} />
+  renderRow = ({ name, id, photos, icon }) => (
+    <PlaceItem
+      key={id}
+      name={name}
+      photos={photos}
+      icon={icon}
+      onPress={() => this.props.togglePlace(id)}
+      isSelected={propEq('selectedPlace', id)(this.props)}
+    />
+  )
 
   get loader() {
     return ifElse(
@@ -69,11 +78,13 @@ class Map extends PureComponent {
 const mapStateToProps = createStructuredSelector({
   places: selectPlacesData,
   isFetching: selectIsFetching,
-  isEmpty: arePlacesEmpty
+  isEmpty: arePlacesEmpty,
+  selectedPlace: selectSelectedPlace
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  fetchPlaces: PlacesActions.request
+  fetchPlaces: PlacesActions.request,
+  togglePlace: PlacesActions.togglePlace
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map)
