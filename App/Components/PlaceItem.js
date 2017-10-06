@@ -6,7 +6,6 @@ import styles from './Styles/PlaceItem'
 import GooglePhoto from './LazyImage';
 import Config from 'react-native-config'
 import qs from 'query-string'
-const GOOGLE_PHOTO_URL = 'https://maps.googleapis.com/maps/api/place/photo'
 
 const IMAGE_SIZE = 100
 
@@ -29,7 +28,7 @@ export default class PlaceItem extends PureComponent {
     }
     const query = qs.stringify(params)
 
-    return { uri: `${GOOGLE_PHOTO_URL}?${query}` }
+    return { uri: `${Config.GOOGLE_PHOTO_URL}?${query}` }
   }
 
   get selectedStyles () {
