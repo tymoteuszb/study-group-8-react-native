@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native'
-import { Colors } from '../../Themes/'
+import { Colors } from '../../Themes/index';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    flexWrap: 'wrap',
+    borderRadius: 15,
     backgroundColor: Colors.light,
-  }
+    width: 30,
+    height: 30
+  },
 })

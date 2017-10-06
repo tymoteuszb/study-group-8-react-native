@@ -39,5 +39,14 @@ export default StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.light,
     zIndex: 1
+  },
+  topButtonsWrapper: {
+    position: 'absolute',
+    zIndex: 9,
+    right: 10,
+    top: 10,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start'
   }
 })

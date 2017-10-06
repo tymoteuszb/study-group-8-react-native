@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import MapView from 'react-native-maps'
 import { createStructuredSelector } from 'reselect'
+import RoundedButton from '../Components/RoundedButton'
 
 import { MapStyles } from '../Themes'
 import { selectRegion } from '../Selectors/MapSelectors'
 import { selectPlacesMarkers } from '../Selectors/PlacesSelectors'
+import { selectPositionCoordinates } from '../Selectors/GeolocationSelectors'
 import MapActions from '../Redux/MapRedux'
 import PlacesActions from '../Redux/PlacesRedux'
 
@@ -18,10 +20,20 @@ class Map extends PureComponent {
     this.forceUpdate();
   }
 
+  goToCurrentLocation = () => {
+    if(this.props.currentPosition) {
+      this.map.animateToCoordinate(this.props.currentPosition)
+    }
+  }
+
   render () {
     return (
       <View style={styles.container}>
+        <View style={styles.topButtonsWrapper}>
+          <RoundedButton icon='my-location' onPress={this.goToCurrentLocation} />
+        </View>
         <MapView
+          ref={ref => { this.map = ref }}
           style={styles.map}
           customMapStyle={MapStyles}
           region={this.props.region}
@@ -47,7 +59,8 @@ class Map extends PureComponent {
 
 const mapStateToProps = createStructuredSelector({
   region: selectRegion,
-  markers: selectPlacesMarkers
+  markers: selectPlacesMarkers,
+  currentPosition: selectPositionCoordinates
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
