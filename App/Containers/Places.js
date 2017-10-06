@@ -3,10 +3,11 @@ import { View, Text, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createStructuredSelector } from 'reselect'
-import { complement, equals, ifElse, propEq, always } from 'ramda';
-import { Pulse } from 'react-native-loader';
+import { complement, equals, ifElse, propEq, always } from 'ramda'
+import { Pulse } from 'react-native-loader'
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
-import { selectPlacesData, selectIsFetching } from '../Selectors/PlacesSelectors'
+import { selectPlacesData, selectIsFetching, arePlacesEmpty } from '../Selectors/PlacesSelectors'
 import PlacesActions from '../Redux/PlacesRedux'
 import PlaceItem from '../Components/PlaceItem'
 import { Colors } from '../Themes'
@@ -30,10 +31,31 @@ class Map extends PureComponent {
     )(this.props)
   }
 
+  get emptyState() {
+    return ifElse(
+      propEq('isEmpty', true),
+      () => (
+        <View style={styles.emptyWrapper}>
+          <View style={styles.iconWrapper}>
+            <Icon
+              style={styles.icon}
+              name="map"
+              size={50}
+              color={Colors.grey}
+            />
+          </View>
+          <Text>I can't find any place in this region...</Text>
+        </View>
+      ),
+      always(null)
+    )(this.props)
+  }
+
   render () {
     return (
       <View style={styles.container}>
         {this.loader}
+        {this.emptyState}
         <ListView
           enableEmptySections
           dataSource={this.dataSource.cloneWithRows(this.props.places)}
@@ -46,7 +68,8 @@ class Map extends PureComponent {
 
 const mapStateToProps = createStructuredSelector({
   places: selectPlacesData,
-  isFetching: selectIsFetching
+  isFetching: selectIsFetching,
+  isEmpty: arePlacesEmpty
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

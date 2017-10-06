@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     zIndex: 1,
     flex: 0,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.light,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

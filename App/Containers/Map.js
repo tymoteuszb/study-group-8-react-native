@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect'
 
 import { MapStyles } from '../Themes'
 import { selectRegion } from '../Selectors/MapSelectors'
+import { selectPlacesMarkers } from '../Selectors/PlacesSelectors'
 import MapActions from '../Redux/MapRedux'
 import PlacesActions from '../Redux/PlacesRedux'
 
@@ -20,20 +21,28 @@ class Map extends PureComponent {
           style={styles.map}
           customMapStyle={MapStyles}
           region={this.props.region}
-          onRegionChange={this.props.changeRegion}
-          onRegionChangeComplete={this.props.refreshPlaces}
+          onRegionChangeComplete={this.props.changeRegion}
           showsUserLocation
           showsMyLocationButton
           showsCompass
           zoomEnabled
-        />
+        >
+          {this.props.markers.map(({ coordinates, title, id }) => (
+            <MapView.Marker
+              key={id}
+              coordinate={coordinates}
+              title={title}
+            />
+          ))}
+        </MapView>
       </View>
     )
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  region: selectRegion
+  region: selectRegion,
+  markers: selectPlacesMarkers
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
