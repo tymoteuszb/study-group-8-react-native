@@ -16,10 +16,6 @@ import PlacesActions from '../Redux/PlacesRedux'
 import styles from './Styles/Map'
 
 class Map extends PureComponent {
-  componentWillMount() {
-    this.forceUpdate();
-  }
-
   goToCurrentLocation = () => {
     if(this.props.currentPosition) {
       this.map.animateToCoordinate(this.props.currentPosition)

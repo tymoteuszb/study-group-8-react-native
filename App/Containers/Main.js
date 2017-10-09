@@ -39,7 +39,7 @@ export class Main extends PureComponent {
   renderScene = SceneMap({
     [MENU_TAB_KEY]: Menu,
     [PLACES_TAB_KEY]: Places,
-  });
+  })
 
   toggleMenu = () => {
     Animated.timing(
