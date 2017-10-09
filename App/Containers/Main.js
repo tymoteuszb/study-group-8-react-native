@@ -1,108 +1,125 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
+import { bindActionCreators } from 'redux'
 import { View, Animated, TouchableOpacity, Easing } from 'react-native'
-import { TabViewAnimated, SceneMap } from 'react-native-tab-view';
-import Icon from 'react-native-vector-icons/dist/MaterialIcons';
-import { ifElse, propEq, always, identity, not } from 'ramda';
+import { TabViewAnimated, SceneMap } from 'react-native-tab-view'
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
+import { ifElse, equals, always, not } from 'ramda'
 
 import styles from './Styles/Main'
 import { Metrics, Colors } from '../Themes'
-import Map from './Map';
-import SlidesNavigation from '../Components/SlidesNavigation';
-import Menu from '../Components/Menu';
+import Map from './Map'
+import Places from './Places'
+import SlidesNavigation from '../Components/SlidesNavigation'
+import Menu from '../Components/Menu'
+import MainActions from '../Redux/MainRedux'
+import { selectTabIndex } from '../Selectors/MainSelectors'
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
-const collapsedMapHeight = 300;
-const expandedMapHeight = Metrics.screenHeight;
+const hiddenMenuTranslate = Metrics.screenHeight / 2 - 20;
 
 const PLACES_TAB_KEY = 'places';
 const MENU_TAB_KEY = 'menu';
-const TABS_NAVIGATION_STATE = {
-  index: 0,
+const TABS = {
   routes: [
     { key: MENU_TAB_KEY },
     { key: PLACES_TAB_KEY },
   ],
 }
 
-// TODO PLACES CONTAINER
-const PlacesPlaceholder = () => <View style={[ styles.container, { backgroundColor: Colors.light } ]} />;
-
 export class Main extends PureComponent {
   state = {
-    expanded: false,
-    mapHeight: new Animated.Value(collapsedMapHeight),
+    menuTranslate: new Animated.Value(0),
     tabViewPosition: new Animated.Value(0)
   }
 
+  menuVisible = true
+
   renderScene = SceneMap({
     [MENU_TAB_KEY]: Menu,
-    [PLACES_TAB_KEY]: PlacesPlaceholder,
-  });
+    [PLACES_TAB_KEY]: Places,
+  })
 
-  toggleMapHeight = () => {
+  toggleMenu = () => {
     Animated.timing(
-      this.state.mapHeight,
+      this.state.menuTranslate,
       {
         toValue: ifElse(
-          propEq('expanded', true),
-          always(collapsedMapHeight),
-          always(expandedMapHeight),
-        )(this.state),
+          equals(true),
+          always(hiddenMenuTranslate),
+          always(0),
+        )(this.menuVisible),
         easing: Easing.ease,
         duration: 500
       }
     ).start();
-    this.setState({ expanded: not(this.state.expanded) })
+    this.menuVisible = not(this.menuVisible)
   }
 
-  handlePositionChange = ({ value }) => this.state.tabViewPosition.setValue(value);
+  handlePositionChange = ({ value }) => this.state.tabViewPosition.setValue(value)
 
   render () {
-    const rotateZ = this.state.mapHeight.interpolate({
-      inputRange: ([collapsedMapHeight, expandedMapHeight]),
+    const mapToggleButtonRotateZ = this.state.menuTranslate.interpolate({
+      inputRange: ([0, hiddenMenuTranslate]),
       outputRange: (['0deg', '180deg']),
     });
 
-    const indicatorsTranslateY = this.state.mapHeight.interpolate({
-      inputRange: ([collapsedMapHeight, expandedMapHeight]),
+    const indicatorsTranslateY = this.state.menuTranslate.interpolate({
+      inputRange: ([0, hiddenMenuTranslate]),
       outputRange: ([0, 12]),
     });
 
+    const navigationState = {
+      index: this.props.index,
+      ...TABS
+    }
+
     return (
       <View style={styles.container}>
-        <Animated.View style={[styles.map, { height: this.state.mapHeight }]}>
-          <Map />
+        <Map />
 
-          <View style={styles.mapToggleWrapper}>
-            <TouchableOpacity style={styles.mapToggleButton} onPress={this.toggleMapHeight}>
-              <AnimatedIcon
-                style={{ transform: [{ rotateZ }] }}
-                name="expand-more"
-                size={20}
-                color={Colors.aqua}
-              />
-            </TouchableOpacity>
-
-            <Animated.View style={{ transform: [{ translateY: indicatorsTranslateY }] }}>
-              <SlidesNavigation
-                itemsCount={TABS_NAVIGATION_STATE.routes.length}
-                position={this.state.tabViewPosition}
-              />
-            </Animated.View>
-          </View>
+        <Animated.View
+          gesturesEnabled={false}
+          style={[styles.mapToggleWrapper, { transform: [{ translateY: this.state.menuTranslate }] }]}
+        >
+          <TouchableOpacity style={styles.mapToggleButton} onPress={this.toggleMenu}>
+            <AnimatedIcon
+              style={{ transform: [{ rotateZ: mapToggleButtonRotateZ }] }}
+              name="expand-more"
+              size={20}
+              color={Colors.aqua}
+            />
+          </TouchableOpacity>
         </Animated.View>
 
-        <TabViewAnimated
-          style={styles.content}
-          navigationState={TABS_NAVIGATION_STATE}
-          renderScene={this.renderScene}
-          onIndexChange={identity}
-          onPositionChange={this.handlePositionChange}
-        />
+        <Animated.View style={[styles.contentWrapper, { transform: [{ translateY: this.state.menuTranslate }] }]}>
+          <Animated.View style={{ transform: [{ translateY: indicatorsTranslateY }] }}>
+            <SlidesNavigation
+              itemsCount={TABS.routes.length}
+              position={this.state.tabViewPosition}
+            />
+          </Animated.View>
+
+          <TabViewAnimated
+            style={styles.content}
+            navigationState={navigationState}
+            renderScene={this.renderScene}
+            onIndexChange={this.props.changeTabIndex}
+            onPositionChange={this.handlePositionChange}
+          />
+        </Animated.View>
       </View>
     )
   }
 }
 
-export default connect(null, {})(Main)
+const mapStateToProps = createStructuredSelector({
+  index: selectTabIndex
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  changeTabIndex: MainActions.changeTabIndex,
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)

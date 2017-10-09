@@ -1,13 +1,19 @@
 import { combineReducers } from 'redux'
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
+import { reducer as main } from './MainRedux'
+import { reducer as map } from './MapRedux'
+import { reducer as places } from './PlacesRedux'
+import { reducer as geolocation } from './GeolocationRedux'
 
 export default () => {
   /* ------------- Assemble The Reducers ------------- */
   const rootReducer = combineReducers({
     nav: require('./NavigationRedux').reducer,
-    github: require('./GithubRedux').reducer,
-    search: require('./SearchRedux').reducer
+    main,
+    map,
+    places,
+    geolocation
   })
 
   return configureStore(rootReducer, rootSaga)

@@ -8,7 +8,7 @@ const size = {
   h1: 38,
   h2: 34,
   regular: 17,
-  menuItem: 16,
+  menuItem: 16
 }
 
 const style = {
