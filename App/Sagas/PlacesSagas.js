@@ -24,6 +24,6 @@ export function * request () {
       yield put(PlacesActions.failure(error))
     }
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 }

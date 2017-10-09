@@ -45,6 +45,7 @@ class Map extends PureComponent {
               coordinate={coordinates}
               title={title}
               pinColor={color}
+              onPress={() => this.props.togglePlace(id)}
             />
           ))}
         </MapView>
@@ -61,6 +62,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   refreshPlaces: PlacesActions.request,
+  togglePlace: PlacesActions.togglePlace,
   changeRegion: MapActions.changeRegion
 }, dispatch)
 

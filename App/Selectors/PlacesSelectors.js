@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { prop, isEmpty, equals, always, ifElse } from 'ramda'
+import { prop, isEmpty, equals, always, ifElse, propEq } from 'ramda'
 import { Colors } from '../Themes'
 
 const selectPlaces = prop('places')
@@ -36,4 +36,9 @@ export const selectPlacesMarkers = createSelector(
 export const arePlacesEmpty = createSelector(
   selectPlacesData,
   isEmpty
+)
+
+export const selectSelectedPlaceData = createSelector(
+  selectPlacesData, selectSelectedPlace,
+  (places, selectedPlaceId) => places.find(propEq('id', selectedPlaceId))
 )

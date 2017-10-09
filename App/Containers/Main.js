@@ -17,7 +17,7 @@ import MainActions from '../Redux/MainRedux'
 import { selectTabIndex } from '../Selectors/MainSelectors'
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
-const hiddenMenuTranslate = Metrics.screenHeight / 2 - 20;
+const hiddenMenuTranslate = Metrics.screenHeight / 3;
 
 const PLACES_TAB_KEY = 'places';
 const MENU_TAB_KEY = 'menu';

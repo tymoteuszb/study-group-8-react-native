@@ -2,7 +2,8 @@ import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
-  changeRegion: ['region']
+  changeRegion: ['region'],
+  changeCoordinates: ['latitude', 'longitude']
 }, { prefix: 'MAP_' });
 
 export const MapTypes = Types
@@ -22,6 +23,11 @@ export const INITIAL_STATE = Immutable({
 export const changeRegion = (state, { region }) => state
   .set('region', region)
 
+export const changeCoordinates = (state, { latitude, longitude }) => state
+  .set('latitude', latitude)
+  .set('longitude', longitude)
+
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.CHANGE_REGION]: changeRegion
+  [Types.CHANGE_REGION]: changeRegion,
+  [Types.CHANGE_COORDINATES]: changeCoordinates
 })
