@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 
 import MenuItem from './MenuItem'
 import { Colors } from '../Themes'
@@ -8,11 +8,13 @@ import styles from './Styles/Menu'
 export default class Menu extends PureComponent {
   render () {
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <MenuItem icon='lightbulb-outline' color={Colors.yellow} />
-        <MenuItem icon='explore' color={Colors.orange} />
-        <MenuItem icon='room' color={Colors.brown} />
-        <MenuItem icon='photo-camera' color={Colors.aqua} />
+      <ScrollView>
+        <View style={styles.container}>
+          <MenuItem icon='lightbulb-outline' color={Colors.yellow} />
+          <MenuItem icon='explore' color={Colors.orange} />
+          <MenuItem icon='room' color={Colors.brown} />
+          <MenuItem icon='photo-camera' color={Colors.aqua} />
+        </View>
       </ScrollView>
     )
   }
