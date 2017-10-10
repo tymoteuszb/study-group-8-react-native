@@ -5,6 +5,7 @@ import { reducer as main } from './MainRedux'
 import { reducer as map } from './MapRedux'
 import { reducer as places } from './PlacesRedux'
 import { reducer as geolocation } from './GeolocationRedux'
+import { reducer as camera } from './CameraRedux'
 
 export default () => {
   /* ------------- Assemble The Reducers ------------- */
@@ -13,7 +14,8 @@ export default () => {
     main,
     map,
     places,
-    geolocation
+    geolocation,
+    camera
   })
 
   return configureStore(rootReducer, rootSaga)
