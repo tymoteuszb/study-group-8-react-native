@@ -27,7 +27,12 @@ const PrimaryNav = StackNavigator({
       easing: Easing.ease,
       timing: Animated.timing
     },
-    screenInterpolator: ({ position, scene: { index } }) => {
+    screenInterpolator: ({ layout: { initWidth }, position, scene: { index } }) => {
+      const translateX = position.interpolate({
+        inputRange: [index - 1, index, index + 1],
+        outputRange: [initWidth, 0, -initWidth]
+      })
+
       const scale = position.interpolate({
         inputRange: [index - 1, index, index + 1],
         outputRange: [1.2, 1, 1.2]
@@ -38,7 +43,7 @@ const PrimaryNav = StackNavigator({
         outputRange: [0, 1, 0]
       })
 
-      return { opacity, transform: [{ scale }] }
+      return { opacity, transform: [{ translateX }, { scale }] }
     }
   })
 })

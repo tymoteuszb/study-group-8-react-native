@@ -52,8 +52,7 @@
     "redux-saga": "^0.15.6",
     "reduxsauce": "0.4.1",
     "reselect": "^3.0.1",
-    "seamless-immutable": "^7.0.1",
-    "tineye-api": "^1.0.2"
+    "seamless-immutable": "^7.0.1"
   },
   "devDependencies": {
     "@storybook/addon-storyshots": "^3.2.3",

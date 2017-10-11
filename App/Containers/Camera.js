@@ -57,7 +57,7 @@ class Map extends PureComponent {
 
           {this.mainButton}
 
-          <RoundedButton icon='search' />
+          <RoundedButton icon='search' onPress={this.props.search} />
         </View>
       </View>
     )
@@ -70,6 +70,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   changePath: CameraActions.changePath,
+  search: CameraActions.imageSearchRequest,
   clear: CameraActions.clear
 }, dispatch)
 
