@@ -7,9 +7,7 @@ export function * imageSearchRequest () {
   try {
     const path = yield select(selectPath)
     const data = yield RNFS.readFile(path, 'base64')
-
-    // const response = yield TinEye.searchData(data, { offset: 0, limit: 10 })
-    console.log(response)
+    
   } catch (error) {
     console.log(error)
   }
