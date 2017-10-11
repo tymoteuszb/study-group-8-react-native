@@ -14,6 +14,9 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
 import com.rnfs.RNFSPackage;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,12 +33,15 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFSPackage(),
-            new RCTCameraPackage(),
+          new RNFSPackage(),
+          new RCTCameraPackage(),
           new ReactNativeConfigPackage(),
           new MapsPackage(),
           new VectorIconsPackage(),
-          new ExtraDimensionsPackage()
+          new ExtraDimensionsPackage(),
+          new RNFirebasePackage(),
+          new RNFirebaseDatabasePackage(),
+          new RNFirebaseStoragePackage()
       );
     }
   };

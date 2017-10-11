@@ -7,7 +7,7 @@ export function * imageSearchRequest () {
   try {
     const path = yield select(selectPath)
     const data = yield RNFS.readFile(path, 'base64')
-    
+
   } catch (error) {
     console.log(error)
   }
