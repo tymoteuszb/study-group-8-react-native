@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { bindActionCreators } from 'redux'
-import { View, Animated, TouchableOpacity, Easing } from 'react-native'
+import { View, Animated, TouchableOpacity, Easing, DeviceEventEmitter } from 'react-native'
 import { TabViewAnimated, SceneMap } from 'react-native-tab-view'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { ifElse, equals, always, not } from 'ramda'
+import ReactNativeHeading from 'react-native-heading'
 
 import styles from './Styles/Main'
 import { Metrics, Colors } from '../Themes'
@@ -32,6 +33,24 @@ export class Main extends PureComponent {
   state = {
     menuTranslate: new Animated.Value(0),
     tabViewPosition: new Animated.Value(0)
+  }
+
+  componentDidMount() {
+    ReactNativeHeading.start(1).then((didStart) => {
+      alert('Heading status: ' + didStart);
+    });
+
+    DeviceEventEmitter.addListener('headingUpdated', data => {
+      if (data) {
+        alert('New heading is:' + data);
+      }
+    });
+
+  }
+
+  componentWillUnmount() {
+    ReactNativeHeading.stop();
+    DeviceEventEmitter.removeAllListeners('headingUpdated');
   }
 
   menuVisible = true

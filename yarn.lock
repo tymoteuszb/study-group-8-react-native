@@ -6498,6 +6498,10 @@ react-native-fs@^2.8.1:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
+react-native-heading@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-heading/-/react-native-heading-1.1.1.tgz#a6426bb627df74b1f312f866d103defc85fda357"
+
 react-native-loader@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-loader/-/react-native-loader-1.1.0.tgz#9e87e88d5b0a03a26b28591b23da73408a189e47"

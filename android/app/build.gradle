@@ -96,7 +96,7 @@ android {
 
     defaultConfig {
         applicationId "com.studygroup8reactnative"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -146,6 +146,7 @@ dependencies {
     compile(project(':react-native-firebase')) {
         transitive = false
     }
+    compile project(':react-native-heading')
     compile 'com.google.firebase:firebase-core:11.2.0'
     compile 'com.google.firebase:firebase-database:11.2.0'
     compile 'com.google.firebase:firebase-storage:11.2.0'
