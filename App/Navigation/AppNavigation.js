@@ -2,6 +2,7 @@ import { StackNavigator } from 'react-navigation'
 import { Easing, Animated } from 'react-native'
 import Main from '../Containers/Main'
 import Camera from '../Containers/Camera'
+import Compass from '../Containers/Compass'
 
 import styles from './Styles/NavigationStyles'
 
@@ -14,6 +15,12 @@ const PrimaryNav = StackNavigator({
     screen: Camera,
     navigationOptions: {
       headerTitle: 'CAMERA'
+    }
+  },
+  Compass: {
+    screen: Compass,
+    navigationOptions: {
+      headerTitle: 'COMPASS'
     }
   }
 }, {

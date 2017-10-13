@@ -15,7 +15,7 @@ import Places from './Places'
 import SlidesNavigation from '../Components/SlidesNavigation'
 import Menu from '../Components/Menu'
 import MainActions from '../Redux/MainRedux'
-import { selectTabIndex } from '../Selectors/MainSelectors'
+import { selectTabIndex, selectHeadingSupport } from '../Selectors/MainSelectors'
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 const hiddenMenuTranslate = Metrics.screenHeight / 3;
@@ -36,27 +36,23 @@ export class Main extends PureComponent {
   }
 
   componentDidMount() {
-    ReactNativeHeading.start(1).then((didStart) => {
-      alert('Heading status: ' + didStart);
-    });
-
-    DeviceEventEmitter.addListener('headingUpdated', data => {
-      if (data) {
-        alert('New heading is:' + data);
-      }
-    });
-
+    ReactNativeHeading.start(1).then(ifElse(
+      equals(true),
+      this.props.setHeadingSupport,
+      always(null)
+    ));
   }
 
   componentWillUnmount() {
     ReactNativeHeading.stop();
-    DeviceEventEmitter.removeAllListeners('headingUpdated');
   }
 
   menuVisible = true
 
-  renderScene = SceneMap({
-    [MENU_TAB_KEY]: () => <Menu navigate={this.props.navigation.navigate} />,
+  renderScene = () => SceneMap({
+    [MENU_TAB_KEY]: () => (
+      <Menu navigate={this.props.navigation.navigate} isHeadingSupported={this.props.isHeadingSupported} />
+    ),
     [PLACES_TAB_KEY]: Places,
   })
 
@@ -123,7 +119,7 @@ export class Main extends PureComponent {
           <TabViewAnimated
             style={styles.content}
             navigationState={navigationState}
-            renderScene={this.renderScene}
+            renderScene={this.renderScene()}
             onIndexChange={this.props.changeTabIndex}
             onPositionChange={this.handlePositionChange}
           />
@@ -134,11 +130,13 @@ export class Main extends PureComponent {
 }
 
 const mapStateToProps = createStructuredSelector({
-  index: selectTabIndex
+  index: selectTabIndex,
+  isHeadingSupported: selectHeadingSupport,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   changeTabIndex: MainActions.changeTabIndex,
+  setHeadingSupport: MainActions.setHeadingSupport,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

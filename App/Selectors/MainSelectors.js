@@ -7,3 +7,9 @@ export const selectTabIndex = createSelector(
   selectMain,
   prop('tabIndex')
 )
+
+export const selectHeadingSupport = createSelector(
+  selectMain,
+  prop('isHeadingSupported')
+)
+
