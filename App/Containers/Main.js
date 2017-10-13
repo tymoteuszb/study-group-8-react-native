@@ -20,8 +20,8 @@ import { selectIsSupported } from '../Selectors/CompassSelectors'
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 const hiddenMenuTranslate = Metrics.screenHeight / 3;
 
-const PLACES_TAB_KEY = 'places';
-const MENU_TAB_KEY = 'menu';
+export const PLACES_TAB_KEY = 'places';
+export const MENU_TAB_KEY = 'menu';
 const TABS = {
   routes: [
     { key: MENU_TAB_KEY },
@@ -37,11 +37,16 @@ export class Main extends PureComponent {
 
   menuVisible = true
 
-  renderScene = () => SceneMap({
+  renderScene = SceneMap({
     [MENU_TAB_KEY]: () => (
-      <Menu navigate={this.props.navigation.navigate} isCompassSupported={this.props.isCompassSupported} />
+      <Menu
+        navigate={this.props.navigation.navigate}
+        tabs={TABS}
+        changeTabIndex={this.props.changeTabIndex}
+        isCompassSupported={this.props.isCompassSupported}
+      />
     ),
-    [PLACES_TAB_KEY]: Places,
+    [PLACES_TAB_KEY]: () => <Places tabs={TABS} changeTabIndex={this.props.changeTabIndex}/>,
   })
 
   toggleMenu = () => {
