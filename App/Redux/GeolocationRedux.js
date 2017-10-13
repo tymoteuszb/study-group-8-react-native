@@ -5,7 +5,7 @@ const { Types, Creators } = createActions({
   startWatchingPosition: [],
   getCurrentPosition: ['position'],
   changePosition: ['position']
-})
+}, { prefix: 'GEOLOCATION_' })
 
 export const GeolocationTypes = Types
 export default Creators

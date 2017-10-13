@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "446218047900",
+    "firebase_url": "https://studygroup8react-1504772714802.firebaseio.com",
+    "project_id": "studygroup8react-1504772714802",
+    "storage_bucket": "studygroup8react-1504772714802.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446218047900:android:e6f98c94a6980c18",
+        "android_client_info": {
+          "package_name": "com.studygroup8reactnative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446218047900-0q3rjo0vqimm8mc3o0veokdjjmc44ogf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjzLfoq3f10t6SmcepSdCjIXsGQyr2KPI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

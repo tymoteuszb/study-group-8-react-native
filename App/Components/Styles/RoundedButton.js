@@ -5,9 +5,6 @@ export default StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15,
     backgroundColor: Colors.light,
-    width: 30,
-    height: 30
   },
 })

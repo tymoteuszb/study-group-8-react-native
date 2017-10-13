@@ -4,7 +4,7 @@ import { ApplicationStyles, Fonts, Colors, Metrics } from '../../Themes/index';
 export default StyleSheet.create({
   container: {
     overflow: 'hidden',
-    width: (Metrics.screenWidth - 20) / 3,
+    width: (Metrics.screenWidth) / 3,
     height: 100,
     flexDirection: 'row',
     justifyContent: 'center',

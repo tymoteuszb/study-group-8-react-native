@@ -8,12 +8,16 @@ import styles from './Styles/Menu'
 export default class Menu extends PureComponent {
   render () {
     return (
-      <ScrollView>
+      <ScrollView style={styles.list}>
         <View style={styles.container}>
           <MenuItem icon='lightbulb-outline' color={Colors.yellow} />
           <MenuItem icon='explore' color={Colors.orange} />
           <MenuItem icon='room' color={Colors.brown} />
-          <MenuItem icon='photo-camera' color={Colors.aqua} />
+          <MenuItem
+            icon='photo-camera'
+            color={Colors.aqua}
+            onPress={() => this.props.navigate('Camera')}
+          />
         </View>
       </ScrollView>
     )
