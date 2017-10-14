@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { View, Image, Text, Animated, Easing, DeviceEventEmitter } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { when, complement, propEq } from 'ramda'
 import { createStructuredSelector } from 'reselect'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import RoundedButton from '../Components/RoundedButton';
@@ -14,26 +14,21 @@ import Images from '../Themes/Images'
 
 
 class Compass extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      rotation: new Animated.Value(props.direction),
-    }
+  state = {
+    rotation: new Animated.Value(this.props.direction),
   }
 
-  componentWillReceiveProps(newProps) {
-    if (this.props.direction !== newProps.direction) {
-      Animated.timing(
-        this.state.rotation,
-        {
-          toValue: newProps.direction,
-          easing: Easing.ease,
-          duration: 10
-        }
-      ).start();
-    }
-  }
+  componentWillReceiveProps = when(
+    complement(propEq('direction', this.props.direction)),
+    newProps => Animated.timing(
+      this.state.rotation,
+      {
+        toValue: newProps.direction,
+        easing: Easing.ease,
+        duration: 10
+      }
+    ).start()
+  )
 
   render () {
     const spin = this.state.rotation.interpolate({
@@ -70,7 +65,4 @@ const mapStateToProps = createStructuredSelector({
   direction: selectDirection,
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-}, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(Compass)
+export default connect(mapStateToProps)(Compass)

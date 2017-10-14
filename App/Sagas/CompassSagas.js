@@ -8,7 +8,7 @@ import CompassActions from '../Redux/CompassRedux'
 
 export function * initialize () {
   try {
-    const isHeadingSupported = yield call(ReactNativeHeading.start, 1);
+    const isHeadingSupported = yield ReactNativeHeading.start(1);
     if (isHeadingSupported) {
       yield put(CompassActions.setIsSupported());
       yield put(CompassActions.startWatchingDirection());

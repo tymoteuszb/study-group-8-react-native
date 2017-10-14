@@ -4,7 +4,6 @@ import { ApplicationStyles, Metrics, Colors } from '../../Themes/'
 export default StyleSheet.create({
   container: {
     ...ApplicationStyles.screen.mainContainer,
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },

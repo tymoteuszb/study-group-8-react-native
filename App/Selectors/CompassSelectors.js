@@ -8,7 +8,6 @@ export const selectDirection = createSelector(
   prop('direction')
 )
 
-
 export const selectIsSupported = createSelector(
   selectMain,
   prop('isSupported')
