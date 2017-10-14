@@ -2,11 +2,10 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { bindActionCreators } from 'redux'
-import { View, Animated, TouchableOpacity, Easing, DeviceEventEmitter } from 'react-native'
+import { View, Animated, TouchableOpacity, Easing } from 'react-native'
 import { TabViewAnimated, SceneMap } from 'react-native-tab-view'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import { ifElse, equals, always, not } from 'ramda'
-import ReactNativeHeading from 'react-native-heading'
 
 import styles from './Styles/Main'
 import { Metrics, Colors } from '../Themes'
@@ -15,7 +14,8 @@ import Places from './Places'
 import SlidesNavigation from '../Components/SlidesNavigation'
 import Menu from '../Components/Menu'
 import MainActions from '../Redux/MainRedux'
-import { selectTabIndex, selectHeadingSupport } from '../Selectors/MainSelectors'
+import { selectTabIndex } from '../Selectors/MainSelectors'
+import { selectIsSupported } from '../Selectors/CompassSelectors'
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 const hiddenMenuTranslate = Metrics.screenHeight / 3;
@@ -35,23 +35,11 @@ export class Main extends PureComponent {
     tabViewPosition: new Animated.Value(0)
   }
 
-  componentDidMount() {
-    ReactNativeHeading.start(1).then(ifElse(
-      equals(true),
-      this.props.setHeadingSupport,
-      always(null)
-    ));
-  }
-
-  componentWillUnmount() {
-    ReactNativeHeading.stop();
-  }
-
   menuVisible = true
 
   renderScene = () => SceneMap({
     [MENU_TAB_KEY]: () => (
-      <Menu navigate={this.props.navigation.navigate} isHeadingSupported={this.props.isHeadingSupported} />
+      <Menu navigate={this.props.navigation.navigate} isCompassSupported={this.props.isCompassSupported} />
     ),
     [PLACES_TAB_KEY]: Places,
   })
@@ -131,12 +119,11 @@ export class Main extends PureComponent {
 
 const mapStateToProps = createStructuredSelector({
   index: selectTabIndex,
-  isHeadingSupported: selectHeadingSupport,
+  isCompassSupported: selectIsSupported,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   changeTabIndex: MainActions.changeTabIndex,
-  setHeadingSupport: MainActions.setHeadingSupport,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

@@ -21,7 +21,6 @@ const images = {
   backButton: require('../Images/Icons/back-button.png'),
   closeButton: require('../Images/Icons/close-button.png'),
   compass: require('../Images/compass.png'),
-  compassArrow: require('../Images/compass_arrow.png')
 }
 
 export default images

@@ -8,6 +8,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  text: {
+    fontSize: 20,
+  },
   backButton: {
     backgroundColor: Colors.aqua,
     position: 'absolute',
@@ -19,11 +22,4 @@ export default StyleSheet.create({
     width: 380,
     height: 380,
   },
-  arrowImage: {
-    width: 380,
-    height: 380,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-  }
 })

@@ -1,55 +1,58 @@
 import React, { PureComponent } from 'react'
-import { View, Image, Animated, Easing, DeviceEventEmitter } from 'react-native'
+import { View, Image, Text, Animated, Easing, DeviceEventEmitter } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createStructuredSelector } from 'reselect'
+import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 import RoundedButton from '../Components/RoundedButton';
 import { Colors } from '../Themes'
+
+import { selectDirection } from '../Selectors/CompassSelectors'
 
 import styles from './Styles/Compass'
 import Images from '../Themes/Images'
 
 
 class Compass extends PureComponent {
-  state = {
-    rotation: new Animated.Value(0),
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    DeviceEventEmitter.addListener('headingUpdated', data => {
+    this.state = {
+      rotation: new Animated.Value(props.direction),
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.direction !== newProps.direction) {
       Animated.timing(
         this.state.rotation,
         {
-          toValue: data,
+          toValue: newProps.direction,
           easing: Easing.ease,
           duration: 10
         }
       ).start();
-    });
-  }
-
-  componentWillUnmount() {
-    DeviceEventEmitter.removeAllListeners('headingUpdated');
+    }
   }
 
   render () {
     const spin = this.state.rotation.interpolate({
       inputRange: [0, 360],
-      outputRange: ['0deg', '360deg']
+      outputRange: ['0deg', '-360deg']
     });
 
     return (
       <View style={styles.container}>
-        <View>
-          <Image
-            style={styles.compassImage}
-            source={Images.compass}
-          />
-          <Animated.Image
-            style={[styles.arrowImage, { transform: [{rotate: spin}] }]}
-            source={Images.compassArrow}
-          />
-        </View>
+        <Text style={styles.text}>Direction: {this.props.direction}</Text>
+        <Icon
+          name="arrow-drop-down"
+          size={100}
+          color={Colors.aqua}
+        />
+        <Animated.Image
+          style={[styles.compassImage, { transform: [{rotate: spin}] }]}
+          source={Images.compass}
+        />
         <RoundedButton
           icon='arrow-back'
           color={Colors.white}
@@ -64,10 +67,10 @@ class Compass extends PureComponent {
 }
 
 const mapStateToProps = createStructuredSelector({
+  direction: selectDirection,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Compass)

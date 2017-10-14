@@ -13,7 +13,7 @@ export default class Menu extends PureComponent {
           <MenuItem icon='lightbulb-outline' color={Colors.yellow} />
           <MenuItem
             icon='explore'
-            disabled={!this.props.isHeadingSupported}
+            disabled={!this.props.isCompassSupported}
             color={Colors.orange}
             onPress={() => this.props.navigate('Compass')}
           />
