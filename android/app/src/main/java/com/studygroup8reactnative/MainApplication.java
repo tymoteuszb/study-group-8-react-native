@@ -18,6 +18,8 @@ import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
+import com.studygroup8reactnative.flashlight.*;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
           new ExtraDimensionsPackage(),
           new RNFirebasePackage(),
           new RNFirebaseDatabasePackage(),
-          new RNFirebaseStoragePackage()
+          new RNFirebaseStoragePackage(),
+          new FlashlightPackage()
       );
     }
   };
