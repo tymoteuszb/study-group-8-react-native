@@ -15,6 +15,7 @@ export const INITIAL_STATE = Immutable({
 export const changeTabIndex = (state, { index }) => state
   .set('tabIndex', index)
 
+
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.CHANGE_TAB_INDEX]: changeTabIndex
 })

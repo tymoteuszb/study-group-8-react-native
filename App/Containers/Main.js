@@ -15,6 +15,7 @@ import SlidesNavigation from '../Components/SlidesNavigation'
 import Menu from '../Components/Menu'
 import MainActions from '../Redux/MainRedux'
 import { selectTabIndex } from '../Selectors/MainSelectors'
+import { selectIsSupported } from '../Selectors/CompassSelectors'
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 const hiddenMenuTranslate = Metrics.screenHeight / 3;
@@ -36,8 +37,10 @@ export class Main extends PureComponent {
 
   menuVisible = true
 
-  renderScene = SceneMap({
-    [MENU_TAB_KEY]: () => <Menu navigate={this.props.navigation.navigate} />,
+  renderScene = () => SceneMap({
+    [MENU_TAB_KEY]: () => (
+      <Menu navigate={this.props.navigation.navigate} isCompassSupported={this.props.isCompassSupported} />
+    ),
     [PLACES_TAB_KEY]: Places,
   })
 
@@ -104,7 +107,7 @@ export class Main extends PureComponent {
           <TabViewAnimated
             style={styles.content}
             navigationState={navigationState}
-            renderScene={this.renderScene}
+            renderScene={this.renderScene()}
             onIndexChange={this.props.changeTabIndex}
             onPositionChange={this.handlePositionChange}
           />
@@ -115,7 +118,8 @@ export class Main extends PureComponent {
 }
 
 const mapStateToProps = createStructuredSelector({
-  index: selectTabIndex
+  index: selectTabIndex,
+  isCompassSupported: selectIsSupported,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

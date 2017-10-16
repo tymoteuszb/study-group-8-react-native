@@ -11,7 +11,12 @@ export default class Menu extends PureComponent {
       <ScrollView style={styles.list}>
         <View style={styles.container}>
           <MenuItem icon='lightbulb-outline' color={Colors.yellow} />
-          <MenuItem icon='explore' color={Colors.orange} />
+          <MenuItem
+            icon='explore'
+            disabled={!this.props.isCompassSupported}
+            color={Colors.orange}
+            onPress={() => this.props.navigate('Compass')}
+          />
           <MenuItem icon='room' color={Colors.brown} />
           <MenuItem
             icon='photo-camera'

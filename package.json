@@ -41,6 +41,7 @@
     "react-native-extra-dimensions-android": "https://github.com/BelinChung/react-native-extra-dimensions-android.git",
     "react-native-firebase": "^3.0.2",
     "react-native-fs": "^2.8.1",
+    "react-native-heading": "^1.1.1",
     "react-native-loader": "^1.1.0",
     "react-native-maps": "^0.16.3",
     "react-native-tab-view": "^0.0.69",
